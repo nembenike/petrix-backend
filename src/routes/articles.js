@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Article = require('../models/Article');
 
-// Get all articles
 router.get('/', async (req, res) => {
   try {
     const { category, limit = 10, page = 1 } = req.query;
@@ -24,7 +23,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Get single article
 router.get('/:id', async (req, res) => {
   try {
     const article = await Article.findById(req.params.id);
@@ -32,7 +30,6 @@ router.get('/:id', async (req, res) => {
       return res.status(404).json({ message: 'Article not found' });
     }
     
-    // Increment views
     article.views += 1;
     await article.save();
     
@@ -42,7 +39,6 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Create article
 router.post('/', async (req, res) => {
   const article = new Article(req.body);
   try {

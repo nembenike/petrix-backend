@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const Comment = require('../models/Comment');
 
-// Get comments for an article
 router.get('/:articleId', async (req, res) => {
   try {
     const comments = await Comment.find({ articleId: req.params.articleId })
@@ -13,7 +12,6 @@ router.get('/:articleId', async (req, res) => {
   }
 });
 
-// Add comment
 router.post('/', async (req, res) => {
   const comment = new Comment(req.body);
   try {

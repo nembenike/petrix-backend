@@ -6,12 +6,10 @@ require('dotenv').config();
 
 const app = express();
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(morgan('dev'));
 
-// Connect to MongoDB Atlas
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log('Successfully connected to MongoDB Atlas.');
@@ -21,7 +19,6 @@ mongoose.connect(process.env.MONGODB_URI)
     process.exit(1);
   });
 
-// Routes
 app.use('/api/articles', require('./routes/articles'));
 app.use('/api/comments', require('./routes/comments'));
 
