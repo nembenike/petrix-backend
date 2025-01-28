@@ -22,7 +22,12 @@ mongoose.connect(process.env.MONGODB_URI)
 app.use('/api/articles', require('./routes/articles'));
 app.use('/api/comments', require('./routes/comments'));
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only start the server if we're running directly (not through Vercel)
+if (require.main === module) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+module.exports = app;
